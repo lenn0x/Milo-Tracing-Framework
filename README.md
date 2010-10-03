@@ -42,15 +42,22 @@ to analyze performance data.
 ## Building
 
 You need:
+
+- java 1.6
+- thrift 0.2.0
+
+You need:
+
 - java 1.6
 - maven 2
 - thrift 0.2.0
 - scribe
-- cassandra
+- cassandra 0.6
 - mysql 5
 - php 5
 
 Optional:
+
 - python
 - python-scribe
 - python-thrift
