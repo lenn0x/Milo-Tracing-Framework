@@ -1,0 +1,21 @@
+collector_min_workers: 64
+collector_port: 2100
+
+scribe:
+  hostname: localhost
+  port: 1463
+  category: Milo-Trace
+
+cassandra:
+  hostname: localhost
+  port: 9160
+  keyspace: Milo
+  column_family: Traces
+
+mysql:
+  hostname: localhost
+  port: 3306
+  database: milo
+  username: root
+  password: testing
+

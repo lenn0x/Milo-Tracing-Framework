@@ -1,0 +1,24 @@
+#!/bin/sh
+NAME=milo_collector
+JAVA_HOME="/usr/lib/jvm/java-6-sun"
+COLLECTOR_HOME=`dirname $0`/..
+COLLECTOR_BIN=$COLLECTOR_HOME/target/milo_collector-0.1.0-jar-with-dependencies.jar
+CONFDIR=$COLLECTOR_HOME/conf
+JAVA=`which java`
+JVM_MAX_MEM=1G
+JVM_START_MEM=128M
+
+# Read configuration variable file if it is present
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+
+CLASSPATH=$CONFDIR
+exec $JAVA \
+ -cp $CLASSPATH \
+ -server \
+ -Xmx$JVM_MAX_MEM \
+ -Xms$JVM_START_MEM \
+ -Dfg \
+ -Dconfig=$CONFDIR \
+ $* \
+ $JVM_EXTRA_OPTS \
+ -jar $COLLECTOR_BIN

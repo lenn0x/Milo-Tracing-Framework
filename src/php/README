@@ -1,0 +1,10 @@
+Milo Library for PHP
+==============================================
+
+patches/
+    - Support-custom-writeMessageBegin-functions.patch
+        - If you use the PHP Binary Extension, this patch makes the binary
+          extension support custom writeMessageBegin functions from the
+          protocol specific user-land class. This is needed so we can
+          pass trace_id, span_id, span_parent_id into each RPC request.
+          *JIRA THRIFT-941.

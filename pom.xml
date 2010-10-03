@@ -1,0 +1,187 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.milo</groupId>
+    <artifactId>milo_collector</artifactId>
+    <packaging>jar</packaging>
+    <version>0.1.0</version>
+    <name>milo_collector</name>
+    <url>http://maven.apache.org</url>
+
+
+    <dependencies>
+        <!-- from local repo $M2_HOME -->
+        <dependency>
+            <groupId>libthrift</groupId>
+            <artifactId>libthrift</artifactId>
+            <version>917130</version>
+        </dependency>
+        <dependency>
+            <groupId>cassandra</groupId>
+            <artifactId>cassandra</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>scribelog4j</groupId>
+            <artifactId>scribelog4j</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.5.8</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.14</version>
+        </dependency>
+        <dependency>
+           <groupId>mysql</groupId>
+           <artifactId>mysql-connector-java</artifactId>
+           <version>5.1.13</version>
+       </dependency>
+       <dependency>
+           <groupId>org.yaml</groupId>
+           <artifactId>snakeyaml</artifactId>
+           <version>1.7</version>
+       </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>${basedir}/src</sourceDirectory>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+
+            <!--
+            This makes sure the code in gen-java/ is compiled
+            -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <id>add-gen-java</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${basedir}/gen/gen-java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--
+            use the assembly plugin to create a a jar w/ dependencies.
+            NOTE: the jar will be named ${artifactId}-${version}-jar-with-dependencies.jar
+            -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2-beta-5</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>com.milo.collector.CollectorDaemon</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--
+            Install the jars in lib into a local repo. ex ~/.m2/...
+            This enabled use to use the assembly plugin to create a jar w/ dependencies
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>libthrift-hack</id>
+                        <phase>validate</phase>
+                        <configuration>
+                            <file>${basedir}/lib/libthrift.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>libthrift</groupId>
+                            <artifactId>libthrift</artifactId>
+                            <version>917130</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>cassandra-hack</id>
+                        <phase>validate</phase>
+                        <configuration>
+                            <file>${basedir}/lib/cassandra.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>cassandra</groupId>
+                            <artifactId>cassandra</artifactId>
+                            <version>1</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>scribelog4j-hack</id>
+                        <phase>validate</phase>
+                        <configuration>
+                            <file>${basedir}/lib/scribelog4j.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>scribelog4j</groupId>
+                            <artifactId>scribelog4j</artifactId>
+                            <version>1</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
