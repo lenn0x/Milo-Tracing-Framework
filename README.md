@@ -44,11 +44,6 @@ to analyze performance data.
 You need:
 
 - java 1.6
-- thrift 0.2.0
-
-You need:
-
-- java 1.6
 - maven 2
 - thrift 0.2.0
 - scribe
@@ -88,6 +83,7 @@ Configuring Scribe:
 Configuring MySQL:
 
     Create a database called `milo`.
+
     Import SQL tables from ./sql/create_tables.sql
 
 Configuring the Milo Collector:
