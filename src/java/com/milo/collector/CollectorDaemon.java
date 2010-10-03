@@ -53,6 +53,7 @@ public class CollectorDaemon {
 
         String file = configPath + File.separator + "log4j.properties";
         PropertyConfigurator.configure(file);
+        PropertyConfigurator.configure(configPath + File.separator + "collector.yaml");
 
         try {
             CollectorDaemon collector = new CollectorDaemon();

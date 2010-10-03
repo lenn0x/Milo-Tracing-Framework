@@ -74,7 +74,7 @@ Configuring Cassandra:
 
 Configuring Scribe:
 
-    At the moment Scribe used as a transport mechanism that forwards traces to collectors.
+    At the moment Scribe is used as a transport mechanism that forwards traces to collectors.
 
     scribe.conf:
         <store>
