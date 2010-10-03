@@ -33,9 +33,9 @@ to analyze performance data.
  Each service will send it's specific trace data that was generated, out of band to Scribe. One thing to note,
  as each depth of the tree increases, each service is only responsible for it's trace data. When services talk to
  each other over Thrift, the only additional data that is sent across the wire is:
-    - Trace ID (64-bit probablistic identifer)
-    - Span ID (64-bit probablistic identifer)
-    - Span Parent ID (64-bit probablistic identifer)
+    - Trace ID (64-bit probabilistic identifer)
+    - Span ID (64-bit probabilistic identifer)
+    - Span Parent ID (64-bit probabilistic identifer)
 
  It's the collectors job to reconstruct the tree later in an offline process.
 
