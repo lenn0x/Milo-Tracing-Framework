@@ -115,6 +115,19 @@ Configuring the web interface:
 
     Enjoy!
 
+## TODO
+
+- Better support for annotations/events in PHP and Python
+- Support nonblocking servers in Java and Python
+- C library
+- Provide a gevent based Thrift server in Python
+- Better buffering of messages in executors in Java
+- More logging support
+- Support speculative tracing
+- Waterfall breakdown in the web interface
+- Aggregation support
+- Hadoop Map/Reduce support
+
 ## Community
 
 License: Apache 2 (see included LICENSE file)
