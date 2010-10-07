@@ -1,0 +1,5 @@
+python-milo (0.1) unstable; urgency=low
+
+  * First release of Milo framework.
+
+ -- Chris Goffinet <goffinet@digg.com>  Thu, 07 Oct 2010 10:40:55 -0700
