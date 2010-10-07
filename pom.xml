@@ -59,7 +59,9 @@
     </dependencies>
 
     <build>
+        <directory>build</directory>
         <sourceDirectory>${basedir}/src</sourceDirectory>
+        <outputDirectory>build/classes</outputDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

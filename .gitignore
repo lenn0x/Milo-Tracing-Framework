@@ -1,5 +1,6 @@
 *.pyc
 target/
+build/
 *.iml
 *.iws
 *.ipr

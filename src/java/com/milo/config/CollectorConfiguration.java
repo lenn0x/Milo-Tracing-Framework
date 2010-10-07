@@ -8,15 +8,17 @@ import java.net.URL;
 import java.net.MalformedURLException;
 import java.io.InputStream;
 import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
 
 public class CollectorConfiguration {
 
     private static Config instance = null;
     private static final String DEFAULT_COLLECTOR_CONFIG = "collector.yaml";
-    
+
     public static Config get() throws ConfigurationException, IOException {
-        URL url = getCollectorConfigURL();
-        InputStream input = url.openStream();
+        String configYAML = getCollectorConfigURL();
+        InputStream input = new FileInputStream(new File(configYAML));
         org.yaml.snakeyaml.constructor.Constructor constructor = new org.yaml.snakeyaml.constructor.Constructor(Config.class);
         TypeDescription desc = new TypeDescription(Config.class);
         TypeDescription mysql_desc = new TypeDescription(MySQL.class);
@@ -37,19 +39,15 @@ public class CollectorConfiguration {
         return instance;
     }
 
-    static URL getCollectorConfigURL() throws ConfigurationException {
-        URL url;
-        try {
-            url = new URL(DEFAULT_COLLECTOR_CONFIG);
+    static String getCollectorConfigURL() throws ConfigurationException {
+        ClassLoader loader = CollectorConfiguration.class.getClassLoader();
+        String configResource = System.getProperty("config") + File.separator + DEFAULT_COLLECTOR_CONFIG;
+        File f = new File(configResource);
+        if (f.exists() == false) {
+            throw new ConfigurationException("Cannot locate " + DEFAULT_COLLECTOR_CONFIG);
+        } else {
+            return configResource;
         }
-        catch (MalformedURLException e) {
-            ClassLoader loader = CollectorConfiguration.class.getClassLoader();;
-            url = loader.getResource(DEFAULT_COLLECTOR_CONFIG);
-            if (url == null)
-                throw new ConfigurationException("Cannot locate " + DEFAULT_COLLECTOR_CONFIG);
-        }
-
-        return url;
     }
 
 }

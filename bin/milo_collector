@@ -2,7 +2,7 @@
 NAME=milo_collector
 JAVA_HOME="/usr/lib/jvm/java-6-sun"
 COLLECTOR_HOME=`dirname $0`/..
-COLLECTOR_BIN=$COLLECTOR_HOME/target/milo_collector-0.1.0-jar-with-dependencies.jar
+COLLECTOR_BIN=$COLLECTOR_HOME/build/milo_collector-0.1.0-jar-with-dependencies.jar
 CONFDIR=$COLLECTOR_HOME/conf
 JAVA=`which java`
 JVM_MAX_MEM=1G
